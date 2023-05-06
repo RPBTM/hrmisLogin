@@ -1,0 +1,179 @@
+<style>
+body {
+font-family: 'Montserrat', sans-serif;
+overflow-x: hidden !important;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0px; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0px; opacity:1}
+}
+
+.modal {
+  height:auto;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.modal-header {
+  background-color: white;
+  color: #3498db;
+}
+
+.modal-body {
+font-size: 16px;
+background-color: white;
+font-weight: bold;
+color: #0c2c41;
+}
+
+.modal-footer {
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height:auto;
+  background-color: #AED6F1;
+  color: #0c2c41;
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding:0px;
+  border: 1px solid #888;
+  height:auto;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+.loader1 {
+  font-weight: bold;
+  margin: auto;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  border-bottom: 10px solid #3498db;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.lastrow {
+  margin-bottom:0px;
+}
+.firstrow {
+  margin-top:0px;
+}
+.material-icons {
+  position:relative;
+  bottom:-5px;
+}
+
+#foot_banner{
+  text-align:center;
+  padding-top:6px;
+  padding-bottom:6px;
+  //background: linear-gradient(to right, #005c97, #363795);
+  background:linear-gradient(to right, #2c3e50, #4ca1af);
+  width:100%;
+  margin:0px;
+  position:fixed;
+  bottom: 0px;
+  z-index:5;
+}
+  
+/*------Header css settings------*/
+      
+#top_banner{
+  text-align:center;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:10px;
+  padding-bottom:1px;
+  //background: linear-gradient(to right, #005c97, #363795);
+  background:linear-gradient(to right, #2c3e50, #4ca1af);
+  width:100%;
+  display:block;
+  position:static;
+  top:0px;
+  left:0px;
+}
+#top_banner h5{
+  color:#ffffff;
+  text-shadow: 0px 0px 3px #000000;
+/*  font-weight: bold;*/
+  position:relative;
+  bottom: -10px;
+}
+#top_banner h6{
+  color:#ffffff;
+  text-shadow: 0px 0px 3px #000000;
+/*  font-weight: bold;*/
+  position:relative;
+  bottom: -20px;
+}
+#banner_hedding{
+  position:relative;
+  top: -25px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:10px;
+  padding-bottom:1px;
+}
+/*--------End of Header css settings-------*/
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1; <- MODIFY THIS VALUE BY -1
+  background-color: #000000;
+}
+
+#eye_span.field-icon {
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 2;
+}
+#eye_span .eyeopen {
+    opacity:0.3;
+}
+#eye_span .eyeclose {
+    opacity:0.7;
+}
+#eye_span .eyeopen:hover {
+    opacity:0.9;
+    color:#4CA1AF;
+}
+
+#messageBox  {
+  margin-top:10%;
+}
+
+</style> 
