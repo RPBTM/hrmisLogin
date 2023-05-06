@@ -1,0 +1,236 @@
+<script>
+  $(document).ready(function(){
+//Modal functions(open/close)
+    $('.modal').modal();
+//    $('#messageBox').modal({endingTop: '180px'});
+
+    //togglePW();
+    processFAQs();
+  });
+
+function runOnLoad(){
+  //Show info(error) messeges on open
+    google.script.url.getLocation(function(location) {
+    var paraV = (location.parameters["v"]);
+    var paraP = (location.parameters["p"]);
+
+    if(paraP!=null){
+   //   $('#init_modal').modal({dismissible: false });
+      $('#init_modal').modal('open');
+      document.getElementById('modal_body_p1').innerHTML = "Your password reset request is either expired or invalid. <br> Please login or initiate the password reset process again."
+    }else
+    if(paraV!=null){
+   //   $('#init_modal').modal({dismissible: false });
+      $('#init_modal').modal('open');
+      document.getElementById('modal_body_p1').innerHTML = "Your new user registration request is either expired or invalid. <br> Please login with your password."
+
+    }
+  });
+}
+ var secID = null;
+
+ function resetUser(e){
+    e.preventDefault();             
+    
+$("#messageBox").show('fast');
+$('#messageBox').modal('open');
+document.getElementById('loaderId').style.display="block";
+document.getElementById('messageBody').innerHTML=""; 
+document.getElementById('messageFooter').innerHTML="";
+document.getElementById('messageHeader').innerHTML="Processing..."; 
+
+    var uName = $("#username_reset").val().toUpperCase();
+   google.script.run.withSuccessHandler(function(text) {  
+                M.toast({
+                   html: text
+               });
+    
+      if (text == 'Reset Link sent') {      
+    document.getElementById('r_title_span1').style.display="none";
+    document.getElementById('r_title_span2').style.display="block";
+    $('#messageBox').modal('close');
+  //  main.style.display="block";
+  //  reset.style.display='none';    
+    document.getElementById("formMain").reset();
+    document.getElementById("formReset").reset();
+       }  else
+       if ( text=='Error...!' ){
+        $('#messageBox').modal('open');
+        document.getElementById('loaderId').style.display="none";
+        document.getElementById('messageBody').innerHTML=""; 
+        document.getElementById('messageFooter').innerHTML=""; 
+        document.getElementById('messageHeader').innerHTML="<h4 style='color:red;'>-ERROR-</h4>";
+
+        setTimeout(function(){ 
+          $('#messageBox').modal('close');
+            document.getElementById("formMain").reset();
+            document.getElementById("formReset").reset(); }, 5000); 
+        }else
+        if (text=='Error-Not a Registered user...!'){
+        $('#messageBox').modal('open');
+        document.getElementById('loaderId').style.display="none";
+        document.getElementById('messageBody').innerHTML=""; 
+        document.getElementById('messageFooter').innerHTML="<span class='center-align' style='color:red;'>You need to register in the system to reset password...!<br>Please log in the system with your provided password first.</span>"; 
+        document.getElementById('messageHeader').innerHTML="<h4 style='color:red;'>-ERROR-</h4>"; 
+
+            document.getElementById("formMain").reset();
+            document.getElementById("formReset").reset(); 
+        }
+        else
+        if (text=='Error-No valid email address...!'){
+        $('#messageBox').modal('open');
+        document.getElementById('loaderId').style.display="none";
+        document.getElementById('messageBody').innerHTML=""; 
+        document.getElementById('messageFooter').innerHTML="<span class='center-align' style='color:red;'>No valid email address is found for this user...!<br>Please contact system administrator for further assistance.</span>"; 
+        document.getElementById('messageHeader').innerHTML="<h4 style='color:red;'>-ERROR-</h4>"; 
+
+            document.getElementById("formMain").reset();
+            document.getElementById("formReset").reset(); 
+        }
+              
+      }).resetFirst(uName);
+
+ }
+
+function validateUser(e) {
+  
+e.preventDefault();          
+$("#messageBox").show('fast');
+$('#messageBox').modal({dismissible: false }); 
+$('#messageBox').modal('open');
+document.getElementById('loaderId').style.display="block";
+document.getElementById('messageBody').innerHTML=""; 
+document.getElementById('messageFooter').innerHTML="";
+document.getElementById('messageHeader').innerHTML="Processing..."; 
+
+  var userName1 = $("#username").val();
+  var userName = userName1.toUpperCase();
+  var passcodeProper = $("#passwordLogin").val();
+  // var pasccodeNICLower = passcodeNIC.toLowerCase();
+  $("button").attr("disabled", "disabled");
+google.script.run.withSuccessHandler(function(text) {
+     // console.log(text);
+      M.toast({
+          html: text["msg"]
+      });
+      console.log(text);
+if (text["msg"] == "Logging you in!") {
+    $("#formMain").hide("fast"); 
+    $("#regUser").hide("fast"); 
+    $('#messageBox').modal({dismissible: false }); 
+    $('#messageBox').modal('open');
+    document.getElementById('loaderId').style.display="none";
+    document.getElementById('messageBody').innerHTML=""; 
+    document.getElementById('messageFooter').innerHTML=""; 
+    document.getElementById('messageHeader').innerHTML="<h4 style='color:green;'>-LOGIN SUCCESS-</h4>"; 
+    document.getElementById('messageBody').innerHTML="Redirecting...  Please wait."; 
+    document.getElementById('messageFooter').innerHTML="<h5>If not redirect please click <a href="+text[`url`]+" target='_top' > Here! </a></h5>";  
+
+    window.open(text['url'],'_top');
+}
+   else  if (text["msg"] == "Incorrect passcode !"){ 
+    $('#messageBox').modal('close');
+    $('#messageBox').modal({dismissible: true });
+    $('#messageBox').modal('open');
+    document.getElementById('loaderId').style.display="none";
+    document.getElementById('messageBody').innerHTML=""; 
+    document.getElementById('messageFooter').innerHTML=""; 
+    document.getElementById('messageHeader').innerHTML="<h4 style='color:red;'>-LOGIN ERROR-</h4>"; 
+    document.getElementById('messageBody').innerHTML="Entered Username and Password is not matching with database records.<br>Please re-check and try again."; 
+    document.getElementById('messageFooter').innerHTML="Please contact System Admin for further information. Tel: 0112685035";
+
+    document.getElementById("formMain").reset();
+}
+    else  if (text["msg"] == 'Need user registration !'){ 
+//$('#messageBox').modal({dismissible: false });
+$('#messageBox').modal('open');
+    document.getElementById('loaderId').style.display="none";
+    document.getElementById('messageBody').innerHTML=""; 
+    document.getElementById('messageFooter').innerHTML=""; 
+    document.getElementById('messageHeader').innerHTML="<h4 style='color:green;'>-WELCOME NEW USER-</h4>"; 
+    document.getElementById('messageBody').innerHTML="<span class='center-align' >You need to register in the system first.</span><br><span class='center-align'>You will be redirected to user registration page...!</span><br>";
+    document.getElementById('messageFooter').innerHTML="<h5>If not redirect please click <a href="+text[`url`]+'&v=registration'+" target='_top' > Here! </a></h5>";
+      //console.log(window.open(text['url']+"&v=registration"));
+    window.open(text["url"]+"&v=registration","_top");
+}
+
+  $("button").removeAttr("disabled");
+                
+  }).validateUser1(userName,passcodeProper);
+      
+}
+
+
+function showDiv(){
+document.getElementById('formMain').style.display = "block";
+document.getElementById('regUser').style.display = "none";
+document.getElementById('passMsg_2').style.display = "none";
+}        
+
+function showhideDiv(){
+  var reset = document.getElementById('passreset_div');
+  var main = document.getElementById('maindiv');
+  if(reset.style.display==='none'){
+    main.style.display="none";
+    reset.style.display="block";
+  }
+ /* if(main.style.display==='block')*/
+ else {
+    main.style.display="block";
+    reset.style.display='none';    
+  }
+}
+
+function redirectTest(){
+  window.open("<?php echo base_url('user/Byyy');?>")
+}
+
+function hideNdisplay(){
+    document.getElementById('r_title_span1').style.display="block";
+    document.getElementById('r_title_span2').style.display="none";
+}
+
+//Function to show/hide password
+ var clicked = 0;
+  $(".toggle-password").click(function (e) {
+     e.preventDefault();
+
+    $(this).toggleClass("toggle-password");
+      if (clicked == 0) {
+        $(this).html('<span class="material-icons eyeclose teal-text">visibility_off</span >');
+         clicked = 1;
+      } else {
+         $(this).html('<span class="material-icons eyeopen">visibility</span >');
+          clicked = 0;
+       }
+
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+       input.attr("type", "text");
+    } else {
+       input.attr("type", "password");
+    }
+});     
+
+//Function to show FAQ modal
+function showFAQ(){
+    $('#modal_FAQ').modal('open');  
+}
+
+//Function to get FAQs
+function processFAQs(){
+  var AllFAQs =  JSON.parse('<?!= FAQs;?>');
+  for(var i in AllFAQs){
+  var num = (parseInt(i) +1);  
+  var tbody = "";
+    tbody += "<tr><td><i class='material-icons'> help_outline</i> </td>";
+    tbody += "<td><a onclick=\"openGuide('"+AllFAQs[i][2]+"')\">"+num+".  "+AllFAQs[i][1]+"</a></td></tr>";
+
+    document.getElementById('faq_tble_body').innerHTML += tbody;
+  }
+}
+//Function to open guides
+function openGuide(link){
+  window.open(link, "_blank", "location=no,menubar=no,titlebar=no,toolbar=no,scrollbars=no,resizable=yes,top=100,left=100,width=900,height=800");
+}
+</script>
