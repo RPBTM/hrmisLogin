@@ -1,0 +1,150 @@
+<style>
+  a:hover {
+    text-decoration:underline;
+  }
+#passMsg_a {
+  animation: blinker2 0.6s cubic-bezier(1, 0, 0, 1) infinite alternate;  
+  }
+@keyframes blinker2 { to { opacity: 0; } 
+  }
+.input-field label{
+  color:#000000;
+}
+.input-field input:focus + label {
+  @extend color: #26a69a;
+  font-weight:bold;
+}
+#passreset_div, #maindiv{
+  margin-top:60px;
+}
+#btn_close_modal_init {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display:block;
+  box-sizing:border-box;
+  width:20px;
+  height:20px;
+  border-width:3px;
+  border-style: solid;
+  border-color:#e60000;
+  border-radius:100%;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  background-color:red;
+  box-shadow:0px 0px 5px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+#btn_close_modal_init:hover {
+  opacity: 01;
+}
+.modal {
+//  background-color : #ffffff;
+ // opacity:1;
+  z-index:1000;
+}
+#maindiv {
+  z-index:1;
+}
+.FAQ_close * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.FAQ_close {
+  background: transparent;
+  font-family: Helvetica, Arial, sans-serif; 
+  position: relative;
+  top: -20px;
+  width: 35px;
+}
+
+.outer {
+  position: relative;
+  margin: auto;
+  width: 30px;
+  margin-top: 0;
+  margin-right: 0;
+  cursor: pointer;
+}
+
+.inner {
+  width: inherit;
+  text-align: center;
+}
+
+.inner label { 
+  font-size: .6em; 
+  line-height: 3em;
+  text-transform: uppercase;
+  color: #0033cc;
+  transition: all .3s ease-in;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.inner:before, .inner:after {
+  position: absolute;
+  content: '';
+  height: 1px;
+  width: inherit;
+  background: #ff0729;
+  left: 0;
+  transition: all .3s ease-in;
+}
+
+.inner:before {
+  top: 50%; 
+  transform: rotate(45deg);  
+}
+
+.inner:after {  
+  bottom: 50%;
+  transform: rotate(-45deg);  
+}
+
+.outer:hover label {
+  opacity: 1;
+}
+
+.outer:hover .inner:before,
+.outer:hover .inner:after {
+  transform: rotate(0);
+}
+
+.outer:hover .inner:before {
+  top: 0;
+}
+
+.outer:hover .inner:after {
+  bottom: 0;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+#modal_FAQ  {
+  overflow:hidden;
+}
+#modal_FAQ .modal-body {
+  max-height:300px;
+  overflow-y:scroll;
+}
+#modal_FAQ td {
+  padding:5px;
+}
+#modal_FAQ a {
+  cursor: pointer;
+}
+
+</style> 
